@@ -3,13 +3,12 @@ import { check } from 'express-validator';
 import { 
  getReservationByHotel,
  createReservation,
- getReservationByRoom,
  updateReservation,
  cancelReservation
  } from './reservation.controller';
 import { validateFields } from '../middlewares/validarte-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
-import { validateReservationsHotel, createReservation } from '../middlewares/validate-reservation';
+import { validateReservationsHotel, createReservation, validateUpdateReservation, validateCancelReservation } from '../middlewares/validate-reservation';
 
 const router = Router();
 
@@ -33,4 +32,29 @@ router.post(
         validateFields
     ],
     createReservation
+)
+
+router.put(
+    "/:id",
+    [
+        validateJWT,
+        check('id', 'Reservation ID is invalid').isMongoId(),
+        check('checkIn', 'Check-in date is required').notEmpty().isISO8601(),
+        check('checkOut', 'check-out date is required').notEmpty().isISO8601(),
+        check('rooms', 'Rooms must be an array of room ID"s'),isArray({min: 1}),
+        check('hotel','Hotel ID is required').notEmpty().isMongoId(),
+        validateUpdateReservation,
+        validateFields
+    ],
+    updateReservation
+)
+
+router.delete(
+    "/:id",
+    [
+        validateJWT,
+        check('id', 'Reservation ID is invalid').isMongoId(),
+        validateCancelReservation
+    ],
+    cancelReservation
 )

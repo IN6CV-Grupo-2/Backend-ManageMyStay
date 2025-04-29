@@ -1,4 +1,6 @@
 import Reservation from './reservation.model.js';
+import Room from '../room/room.model.js';
+import Hotel from '../hotel/hotel.model.js';
 
 export const getReservationByHotel = async (req, res) => {
     try {
@@ -41,7 +43,7 @@ export const createReservation = async(req, res) => {
         const guest = req.user;
         const {checkIn, checkOut,rooms, hotel} = req.body;
 
-        const newReservation = Reservation.create({
+        const newReservation = await Reservation.create({
             checkIn,
             checkOut,
             guest,
@@ -49,28 +51,17 @@ export const createReservation = async(req, res) => {
             hotel
         })
 
+        await Promise.all(
+            rooms.map(room => 
+                Room.findByIdAndUpdate(room._id, { status: false}, {new: true})
+            )
+        )
+
         res.status(200).json(newReservation)
         
     } catch (error) {
         console.log(error)
         return res.status(500).send('Error createing reservation')
-    }
-}
-
-export const getReservationByRoom = async (req, res) => {
-    try {
-        const { roomId } = req.params;
-        const reservations = await Reservation.find({ rooms: roomId, status: true});
-
-        res.status(200).json({
-            checkIn: reservations.checkIn,
-            checkOut: reservations.checkOut,
-            guest: reservations.guest,
-            hotel: reservations.hotel
-        })
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json('Error to get reservation by room')
     }
 }
 
@@ -106,5 +97,36 @@ export const cancelReservation = async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.status(500).json('Error to cancel the reservation')
+    }
+}
+
+export const verifyRoomsAvailable = async (req, res) => {
+    try {
+        const { hotelId } = req.params;
+        const reservations = await Reservation.find({hotel: hotelId});
+        const currentDate = new Date();
+
+        await Promise.all(
+            reservations.map(async (reservation) => {
+                if(reservation.checkOut < currentDate) {
+                    await Promise.all(
+                        reservation.rooms.map(async (room) => {
+                            await Room.findByIdAndUpdate(room._id, {status: true}, {new: true})
+                        })
+                    )
+                }
+            }
+            )
+        )
+
+        res.status(200).json({
+            msg: 'Rooms verify successfully'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            msg: 'Error to verify the rooms'
+        })
     }
 }

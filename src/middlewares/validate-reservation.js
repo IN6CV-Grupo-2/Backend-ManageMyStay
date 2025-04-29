@@ -30,14 +30,58 @@ export const validateReservationsHotel = async (req, res, next) => {
     }
 }
 
-export const validateCreateReservation = async (req, res, next) => {
+export const validateUpdateReservation = async (req, res, next) => {
     try {
-        
+        const user = req.user;
+        const { reservationId } = req.params;
+        const reservation = await Reservation.findById(reservationId);
+
+        if(!reservation){
+            return res.status(404).json({
+                msg: 'Reservation not found'
+            })
+        }
+
+        if(user.role !== "ADMIN_HOTEL_ROLE" && user._id.toString() !== reservation.guest._id.toString()){
+            return res.status(404).json({
+                msg: 'Only the reservation user or an administrator can edit the reservation'
+            })
+        }
+
+        next();
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            sucess: false,
+            msg: 'Error to update Reservation'
+        })
+    }
+}
+
+export const validateCancelReservation = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const { reservationId } = req.params;
+        const reservation = await Reservation.findById(reservationId);
+
+        if(!reservation){
+            return res.status(404).json({
+                msg: 'Reservation not found'
+            })
+        }
+
+        if(!user.role !== 'ADMIN_HOTEL_ROLE' && user._id.toString() !== reservation.guest._id.toString()){
+            return res.status(404).json({
+                msg: 'Only the reservation user or an administrator can cancel the reservation'
+            })
+        }
+
+        next();
     } catch (error) {
         console.log(error)
         return res.status(500).json({
             success: false,
-            msg: 'Error to create the reservation'
+            msg: 'Error to cancel Reservation'
         })
     }
 }
