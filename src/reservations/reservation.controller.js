@@ -2,22 +2,20 @@ import Reservation from './reservation.model.js';
 
 export const getReservationByHotel = async (req, res) => {
     try {
-        const { hotelId } = req.params;
-        const { limit = 10, since = 0, checkIn, checkOut, sort = 'asc'} = req.query;
-        let { query } = { hotelId, status: true};
-
-        if(checkIn){
-            query.checkIn = {$gte: new Date(checkIn)}
-        }
-        if(checkOut){
-            query.checkOut = {$gte: new Date(checkOut)}
-        }
+        const { hotelId } = req.hotel._id 
+        const { limit = 10, since = 0, orderBy = 'checkIn', sort = 'asc'} = req.query;
+        const query = {
+            hotel: hotelId,
+            status: true
+        };
 
         let sortOptions = {};
-        if(sort === 'asc'){
-            sortOptions = { checkIn: 1};
-        }else if( sort === 'desc'){
-            sortOptions = { checkIn: -1}
+        if(orderBy === 'checkIn') {
+            sortOptions = {checkIn: sort === 'asc' ? 1: -1};
+        }else if(orderBy === 'checkOut'){
+            sortOptions = {checkOut: sort === 'asc' ? 1: -1};
+        }else {
+            sortOptions = {checkIn: 1};
         }
         
         const [total, reservations ] = await Promise.all([
@@ -28,7 +26,10 @@ export const getReservationByHotel = async (req, res) => {
                 .sort(sortOptions)
         ]);
 
-        res.status(200).json(total,reservations)
+        res.status(200).json({
+            total,
+            reservations
+        })
     } catch (error) {
         console.log(error)
         return res.status(500).json('Error showing hotel reservations')
