@@ -9,7 +9,7 @@ const router = Router();
 router.put(
     "/updatePassword/:id",
     [
-        check("id", "ID is not valid").isMongoId(),
+        check("id", "id is not valid").isMongoId(),
         validatePasswordUpdate,
         validarCampos
     ],
