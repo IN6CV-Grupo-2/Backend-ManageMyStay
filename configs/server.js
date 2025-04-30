@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
 import limiter from '../src/middlewares/validar-cant-peticiones.js';
+import billRoutes from '../src/bill/bill.routes.js';
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}));
@@ -15,7 +16,7 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) => {
-
+    app.use('/manageMyStay/bills', billRoutes);
 }
 
 const connectarDB = async () => {
