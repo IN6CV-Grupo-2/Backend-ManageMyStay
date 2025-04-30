@@ -39,10 +39,6 @@ router.put(
     [
         validateJWT,
         check('id', 'Reservation ID is invalid').isMongoId(),
-        check('checkIn', 'Check-in date is required').notEmpty().isISO8601(),
-        check('checkOut', 'check-out date is required').notEmpty().isISO8601(),
-        check('rooms', 'Rooms must be an array of room ID"s'),isArray({min: 1}),
-        check('hotel','Hotel ID is required').notEmpty().isMongoId(),
         validateUpdateReservation,
         validateFields
     ],

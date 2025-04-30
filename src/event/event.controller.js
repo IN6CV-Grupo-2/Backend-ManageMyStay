@@ -2,11 +2,15 @@ import { response, request } from "express";
 import Event from "../event/event.model.js";
 import Hotel from "../hotel/hotel.model.js";
 
-export const getEvents = async (req = request, res = response) => {
-    const { page = 1, limit = 10 } = req.query;
-    const query = { status: true};
-
+export const getEventsByHotel = async (req = request, res = response) => {
     try{
+        const { hotelId } = req.hotel._id;
+        const { page = 1, limit = 10 } = req.query;
+        const query = { 
+            hotel: hotelId,
+            status: true
+        
+        };
         const events = await Event.find(query)
             .limit(Number(limit))
             .skip((Number(page) - 1) * Number(limit));
@@ -61,12 +65,11 @@ export const getEventById = async (req, res) => {
     }
 }
 
-export const createEvent = async (req, res) => {
-    
-    const { name, description, startDate, finishDate, additionalServices, hotel } = req.body;
+export const createEvent = async (req, res) => {    
+    const { name, description, startDate, finishDate, hotel } = req.body;
 
     try {
-        const newEvent = new Event({
+        const newEvent = new Event.create({
             name,
             description,
             startDate,
@@ -75,7 +78,9 @@ export const createEvent = async (req, res) => {
             hotel
         });
 
-        await newEvent.save();
+        await Hotel.findByIdAndUpdate(hotel._id, {
+            $push: { events: newEvent._id}
+        })
 
         res.status(201).json({
             message: "Event created successfully",
@@ -92,18 +97,10 @@ export const createEvent = async (req, res) => {
 }
 
 export const updateEvent = async (req, res = response) => {
-    const { id } = req.params;
-    const { _id, ...data } = req.body;
-
     try {
+        const { id } = req.params;
+        const { _id, ...data } = req.body;
         const event = await Event.findByIdAndUpdate(id, data, { new: true });
-
-        if (!event) {
-            return res.status(404).json({
-                success: false,
-                message: "Event not found",
-            });
-        }
 
         res.status(200).json({
             message: "Event updated successfully",
@@ -119,18 +116,14 @@ export const updateEvent = async (req, res = response) => {
     }
 }
 
-export const deleteEvent = async (req, res) => {
-    const { id } = req.params;
-
+export const cancelEvent = async (req, res) => {
     try {
+        const { id } = req.params;
         const event = await Event.findByIdAndUpdate(id, { status: false }, { new: true });
 
-        if (!event) {
-            return res.status(404).json({
-                success: false,
-                message: "Event not found",
-            });
-        }
+        await Hotel.findByIdAndUpdate(event.hotel._id, {
+            $pull: {events: event._id}
+        })
 
         res.status(200).json({
             message: "Event deleted successfully",
@@ -142,6 +135,33 @@ export const deleteEvent = async (req, res) => {
             success: false,
             message: "Error deleting event",
             error: error.message,
+        })
+    }
+}
+
+export const verifyEventAvailable = async( req, res) => {
+    try {
+        const { hotelId } = req.params;
+        const hotel = await Hotel.findById(hotelId);
+        const currentDate = new Date();
+        
+        await Promise.all(
+            hotel.events.map(async (event) => {
+                if(event.finishDate < currentDate) {
+                    await Event.findByIdAndUpdate(event._id, {status: false})
+                }
+            })
+        )
+
+        res.status(200).json({
+            success: true,
+            msg: 'Events verifed successfully'
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            msg: 'Error to verify the dates of the event'
         })
     }
 }

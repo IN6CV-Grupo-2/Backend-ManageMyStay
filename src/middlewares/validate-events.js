@@ -1,59 +1,84 @@
-import { body} from "express-validator";
 import Event from '../event/event.model.js';
+import Hotel from '../hotel/hotel.model.js';
 
-export const validateEventDates = [
-    body("startDate")
-    .notEmpty().withMessage("Start date is required")
-    .isISO8601().withMessage("Start date must be a valid date")
-    // ex. 2025-04-29
-    .custom((value) => {
-      const date = new Date(value);
-      if (date <= new Date()) {
-        throw new Error("Start date must be in the future");
-      }
-      return true;
-    }),
+export const validateEventsHotel = async (req, res, next) => {
+  try {
+    const user = req.user;
 
-  body("finishDate")
-    .notEmpty().withMessage("Finish date is required")
-    .isISO8601().withMessage("Finish date must be a valid date")
-    // ex. 2025-04-29
-    .custom((value, { req }) => {
-      const start = new Date(req.body.startDate);
-      const end = new Date(value);
-      if (end <= start) {
-        throw new Error("Finish date must be after start date");
-      }
-      return true;
-    }),
-];
+    const hotel = await Hotel.findOne({adminHotel: user._id});
 
-export const validateRole = (...role) => {
-    return (req, res, next) => {
-        if(!req.user){
-            return res.status(500).json({
-                success: false,
-                msg: 'You want to verify a role without validating the token first.'
-            })
-        }
-        if (!role.includes(req.user.role)){
-            return res.status(401).json({
-                success: false,
-                msg: `Unauthorized user, has a role ${req.user.role}, the authorized roles are ${role}`
-            })
-        }
+    if(!hotel){
+      return res.status(404).json({
+        success: false,
+        msg: 'Hotel not found'
+      })
     }
+
+    req.hotel = hotel;
+    next();
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      msg: 'Only a user with admin role can see the events'
+    })
+  }
 }
 
-export const fieldsValidator = (req, res, next) => {
+export const  validateCreateEvent = async (req, res, next) => {
+  try {
+      const { hotelId } = req.body;
+      const hotel = await Hotel.findById(hotelId);
 
-    const errors = validationResult(req);
+      if(!hotel){
+        return res.status(404).json({
+          msg: 'Hotel not found or not exists'
+        })
+      }
 
-    if (!errors.isEmpty()) {
-        return next(errors);
+      next();
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      sucess: false,
+      msg: 'Error to creating Event'
+    })
+  }
+}
+
+export const validateUpdateEvent = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const { eventId } = req.params;
+    const event = await Event.findById(eventId);
+    const {hotelId} = req.body;
+
+    if(!event){
+      return res.status(404).json({
+        msg: 'Event not found or not exists'
+      })
     }
 
-    next();
+    const hotel = event.hotel;
+    if(!user.role !== "ADMIN_ROLE" || user._id.toString() !== hotel.adminUser._id.toString()){
+      return res.status(404).json({
+        msg: 'Only an administrator or an administrator of the hotel can edit the event'
+      })
+    }
+
+    const newHotel = await Hotel.findById(hotelId);
+    if(!newHotel){
+      return res.status(404).json({
+        msg: 'Hotel not found'
+      })
+    }
+
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      success: false,
+      msg: 'Error to validate updating event'
+    })
+  }
 }
 
 export const validateCancelEvent = async (req, res, next) => {
@@ -65,12 +90,6 @@ export const validateCancelEvent = async (req, res, next) => {
     if(!event){
       return res.status(404).json({
         msg: 'Event not found'
-      })
-    }
-
-    if(!user.role !== 'ADMIN_HOTEL_ROLE' || user.role !== 'ADMIN_ROLE'){
-      return res.status(404).json({
-        msg: 'Only an administrator can cancel the event'
       })
     }
 

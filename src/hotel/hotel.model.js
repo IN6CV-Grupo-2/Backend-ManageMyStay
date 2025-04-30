@@ -22,11 +22,10 @@ const HotelSchema = mongoose.Schema({
     ref: 'User',
     required: true
   },
-  event: {
+  events: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
-    
-  },
+  }],
   rooms: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room',

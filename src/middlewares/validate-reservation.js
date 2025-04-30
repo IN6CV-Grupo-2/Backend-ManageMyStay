@@ -5,7 +5,7 @@ export const validateReservationsHotel = async (req, res, next) => {
     try {
         const user = req.user;
         
-        if(user.role !== "ADMIN_ROLE" || user.role !== "ADMIN_HOTEL_ROLE" || user.role !== "ADMIN_ROLE"){
+        if(user.role !== "ADMIN_ROLE" || user.role !== "ADMIN_HOTEL_ROLE"){
             return res.status(404).json({
                 success: false,
                 msg:'Only a user with admin role can see the reservations'
