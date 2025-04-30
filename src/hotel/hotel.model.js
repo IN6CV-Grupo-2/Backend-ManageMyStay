@@ -3,19 +3,19 @@ import mongoose from 'mongoose';
 const HotelSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: [true, 'Name is required']
   },
   address: {
     type: String,
-    required: true
-  },
-  amenities: {
-    type: String,
-    required: true
+    required: [true, 'Addess is required']
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
+    required: true
+  },
+  amenities: {
+    type: String,
     required: true
   },
   user: {

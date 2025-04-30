@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { createHotel, getHotels, getHotelById, updateHotel, deleteHotel } from '../hotel/hotel.controller.js';
-import { validateHotel, validateEditHotel, validateDeleteHotel } from '../middlewares/hotel.validator.js';
+import { validateHotel, validateEditHotel, validateDeleteHotel } from '../middlewares/validate-hotel.js';
 import { validateRole } from "../middlewares/validate-role.js";
 import { validateJWT } from "../middlewares/validate-jwt.js";
 

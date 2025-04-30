@@ -1,6 +1,5 @@
 import Hotel from './hotel.model.js';
 
-// Create a hotel
 export const createHotel = async (req, res) => {
   try {
     const hotel = await Hotel.create(req.body);
@@ -11,7 +10,6 @@ export const createHotel = async (req, res) => {
   }
 };
 
-// Get all hotels (with filters)
 export const getHotels = async (req, res) => {
   const { name, category, direccion } = req.query;
 
@@ -34,7 +32,6 @@ export const getHotels = async (req, res) => {
   }
 };
 
-// Get hotel by ID
 export const getHotelById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -53,7 +50,7 @@ export const getHotelById = async (req, res) => {
   }
 };
 
-// Update hotel
+
 export const updateHotel = async (req, res) => {
   const { id } = req.params;
   try {
@@ -65,7 +62,7 @@ export const updateHotel = async (req, res) => {
   }
 };
 
-// Delete hotel
+
 export const deleteHotel = async (req, res) => {
   const { id } = req.params;
   const { confirm } = req.query;
