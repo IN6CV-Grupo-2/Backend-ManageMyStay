@@ -3,8 +3,10 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
-import limiter from '../src/middlewares/validar-cant-peticiones.js';
+import limiter from '../src/middlewares/validate-number-request.js';
 import eventRoutes from '../src/event/event.routes.js';
+import hotelRoutes from "../src/hotel/hotel.routes.js";
+import reservationRoutes from '../src/reservations/reservation.routes.js';
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}));
@@ -17,11 +19,14 @@ const middlewares = (app) =>{
 
 const routes = (app) => {
     app.use('/manageMyStay/v1/event', eventRoutes);
+    app.use("/manageMyStay/v1/hotel", hotelRoutes);
+    app.use("/manageMyStay/v1/reservation", reservationRoutes);
 }
 
 const connectarDB = async () => {
     try {
         await dbConnection();
+        console.log('Database connecting successfully')
     } catch (error) {
         console.log('Error connecting to the database', error)
         process.exit(1);

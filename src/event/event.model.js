@@ -3,25 +3,23 @@ import { schema, model } from "mongoose";
 const eventSchema = new schema({
     name: {
         type: String,
-        required: true,
+        required: [true, 'Name is required']
     },
     description: {
         type: String,
-        required: true,
+        required: [true, 'Description is required']
     },
     startDate: {
         type: Date,
-        required: true,
+        required: [true, 'Start Date is required']
     },
     finishDate: {
         type: Date,
-        required: true,
+        required: [true, 'Finish Date is required']
     },
-    additionalServices: {
-       type: schema.Types.ObjectId,
-        ref: "AdditionalServices",
-        required: true,
-    },
+    additionalServices: [{
+        type: String,
+     }],
     hotel: {
         type: schema.Types.ObjectId,
         ref: "Hotel",

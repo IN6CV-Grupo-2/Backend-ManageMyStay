@@ -1,4 +1,5 @@
 import { body} from "express-validator";
+import Event from '../event/event.model.js';
 
 export const validateEventDates = [
     body("startDate")
@@ -53,4 +54,33 @@ export const fieldsValidator = (req, res, next) => {
     }
 
     next();
+}
+
+export const validateCancelEvent = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const { eventId } = req.params;
+    const event = await Event.findById(eventId);
+
+    if(!event){
+      return res.status(404).json({
+        msg: 'Event not found'
+      })
+    }
+
+    if(!user.role !== 'ADMIN_HOTEL_ROLE' || user.role !== 'ADMIN_ROLE'){
+      return res.status(404).json({
+        msg: 'Only an administrator can cancel the event'
+      })
+    }
+
+    next();
+
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      sucess: false,
+      msg: 'Error to validate cancel the event'
+    })
+  }
 }
