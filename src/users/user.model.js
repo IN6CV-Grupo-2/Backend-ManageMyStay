@@ -23,7 +23,8 @@ const userSchema = new Schema(
         role: {
             type: String,
             required: true,
-            enum: ["ADMIN_ROLE", "CLIENT _ROLE", "ADMIN_HOTEL_ROLE"] ,
+            enum: ["ADMIN_ROLE", "CLIENT_ROLE", "ADMIN_HOTEL_ROLE"] ,
+            default: "CLIENT_ROLE"
         },
         history: [{
             type: Schema.Types.ObjectId,

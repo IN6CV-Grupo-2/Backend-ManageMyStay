@@ -73,3 +73,25 @@ export const updatedPassword = async (req, res = response) => {
     }
 
 }
+
+export const crateAdmin = async () => {
+    try {
+        const adminD = await User.findOne({ role: "ADMIN_ROLE" });
+        if(!adminD){
+            const passwordEncrypted = await hash("Adm1n123");
+            const admin = new User({
+                name: "Admin",
+                surname: "istrador",
+                email: "admin@gmail.com",
+                password: passwordEncrypted,
+                role: "ADMIN_ROLE",
+            });
+            await admin.save();
+            console.log("Administrador iniciado");
+        } else {
+            console.log("Administrador ya activo");
+        }
+    } catch (error) {
+        console.error("Error creando administrador:", error);
+    }
+};

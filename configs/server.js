@@ -3,7 +3,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
+import { crateAdmin } from '../src/users/user.controller.js';
 import limiter from '../src/middlewares/validar-cant-peticiones.js';
+import userRoutes from '../src/users/user.routes.js';
+import roomRoutes from '../src/rooms/room.routes.js';
+import authRoutes from '../src/auth/auth.routes.js'
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}));
@@ -15,7 +19,9 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) => {
-
+    app.use("/manageMyStay/v1/auth", authRoutes);
+    app.use("/manageMyStay/v1/user", userRoutes);
+    app.use("/manageMyStay/v1/room", roomRoutes);
 }
 
 const connectarDB = async () => {
@@ -34,6 +40,7 @@ export const initServer = async () => {
         middlewares(app);
         connectarDB();
         routes(app);
+        await crateAdmin();
         app.listen(port);
         console.log(`Server running on port ${port}`);
     } catch (err) {

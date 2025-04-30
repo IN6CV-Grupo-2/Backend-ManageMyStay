@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { addRoom, getRoomsAvailable, updateRoom, deleteRoom } from "./room.controller";
-import { validarCampos } from "../middlewares/validar-campos";
-import { validateAddRoom, validateUpdateRoom, validateDeleteRoom } from "../middlewares/validar-room";
+import { addRoom, getRoomsAvailable, updateRoom, deleteRoom } from "./room.controller.js";
+import { validarCampos } from "../middlewares/validar-campos.js";
+import { validateAddRoom, validateUpdateRoom, validateDeleteRoom } from "../middlewares/validar-room.js";
 
 const router = Router();
 

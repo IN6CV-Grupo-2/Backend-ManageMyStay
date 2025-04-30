@@ -1,6 +1,3 @@
-import { verify } from "jsonwebtoken";
-import User from "../users/user.model.js"
-import Room from "../rooms/room.model.js";
   
 export const validateAddRoom = async (req, res, next) => {
     try {
