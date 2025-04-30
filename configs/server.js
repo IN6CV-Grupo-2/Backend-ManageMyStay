@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
 import limiter from '../src/middlewares/validar-cant-peticiones.js';
+import eventRoutes from '../src/event/event.routes.js';
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}));
@@ -15,7 +16,7 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) => {
-
+    app.use('/manageMyStay/v1/event', eventRoutes);
 }
 
 const connectarDB = async () => {
