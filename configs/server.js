@@ -4,7 +4,9 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
 import limiter from '../src/middlewares/validar-cant-peticiones.js';
-import {hotelRoutes} from "../src/hotel/hotel.routes.js";
+import hotelRoutes from "../src/hotel/hotel.routes.js";
+import reservationRoutes from '../src/reservations/reservation.routes.js';
+
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}));
@@ -16,13 +18,14 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) => {
-    app.use('/manageMyStay/hotel', hotelRoutes);
-    app.use('/manageMyStay/categories', categoryRoutes);
+    app.use("/manageMyStay/v1/hotel", hotelRoutes);
+    app.use("/manageMyStay/v1/reservation", reservationRoutes);
 }
 
 const connectarDB = async () => {
     try {
         await dbConnection();
+        console.log('Database connecting successfully')
     } catch (error) {
         console.log('Error connecting to the database', error)
         process.exit(1);
