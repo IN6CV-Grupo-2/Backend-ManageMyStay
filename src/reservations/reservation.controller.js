@@ -88,7 +88,14 @@ export const updateReservation = async(req, res = response) => {
 export const cancelReservation = async (req, res) => {
     try {
         const { reservationId } = req.params;
-        await Reservation.findByIdAndUpdate(reservationId, { status: false},{new: true});
+        const reservation = await Reservation.findByIdAndUpdate(reservationId, { status: false},{new: true});
+
+        await Promise.all(
+            reservation.rooms.map(room => 
+                Room.findByIdAndUpdate(room._id, { status: true}, {new: true})
+            )
+        )
+
 
         return res.status(200).json({
             success: true,

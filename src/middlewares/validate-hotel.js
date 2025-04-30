@@ -1,176 +1,76 @@
-import { body, param, query } from 'express-validator';
 import Hotel from '../models/hotel.model.js';
-import Category from '../models/category.model.js';
-import User from '../models/user.model.js';
 import Event from '../models/event.model.js';
 import Room from '../models/room.model.js';
 
-// Validación para la creación de un hotel
-export const validateHotel = [
-  body('name')
-    .notEmpty().withMessage('Hotel name is required.')
-    .isLength({ min: 3, max: 100 }).withMessage('Hotel name must be between 3 and 100 characters.')
-    .custom(async (value) => {
-      const hotelExists = await Hotel.findOne({ name: value });
-      if (hotelExists) {
-        throw new Error('Hotel name must be unique.');
+
+export const validateUpdateHotel = async (req, res, next) => {
+  try {
+      const  user = req.user;
+      const { hotelId } = req.params;
+      const hotel = await Hotel.findById(hotelId);
+      const data = req.body
+
+      if(!hotel){
+        return res.status(404).json({
+          msg: 'Hotel not found'
+        })
       }
-      return true;
-    }),
 
-  body('address')
-    .notEmpty().withMessage('Address is required.')
-    .isLength({ min: 10, max: 200 }).withMessage('Address must be between 10 and 200 characters.')
-    .trim(),
+      const adminUser = hotel.adminUser;
+      if(!user.role !== "ADMIN_ROLE" || user._id.toString() !== adminUser._id.toString()){
+        return res.status(404).json({
+          msg: 'Only an administrator or an administrator of the hotel can edit the hotel'
+        })
+      }
 
-  body('amenities')
-    .notEmpty().withMessage('Amenities are required.')
-    .isArray().withMessage('Amenities must be an array.')
-    .custom((value) => {
-      const validAmenities = ["WiFi", "Gym", "Pool", "Restaurant", "Spa"];
-      for (const amenity of value) {
-        if (!validAmenities.includes(amenity)) {
-          throw new Error(`${amenity} is not a valid amenity.`);
+      const events = data.events;
+      for(const event of events) {
+        const existsEvent = await Event.findById(event._id);
+        if(!existsEvent){
+          return res.status(404).json({
+            msg: 'One or more events not found'
+          })
         }
       }
-      return true;
-    }),
 
-  body('category')
-    .notEmpty().withMessage('Category is required.')
-    .isMongoId().withMessage('Invalid category ID.')
-    .custom(async (value) => {
-      const categoryExists = await Category.findById(value);
-      if (!categoryExists) {
-        throw new Error('Category does not exist.');
-      }
-      return true;
-    }),
-
-  body('user')
-    .notEmpty().withMessage('User ID is required.')
-    .isMongoId().withMessage('Invalid user ID.')
-    .custom(async (value) => {
-      const userExists = await User.findById(value);
-      if (!userExists) {
-        throw new Error('User does not exist.');
-      }
-      return true;
-    }),
-
-  body('event')
-    .optional()
-    .isMongoId().withMessage('Invalid event ID.')
-    .custom(async (value) => {
-      if (value) {
-        const eventExists = await Event.findById(value);
-        if (!eventExists) {
-          throw new Error('Event does not exist.');
+      const rooms = data.rooms;
+      for(const room of rooms){
+        const existsRoom = await Room.findById(room._id);
+        if(!existsRoom){
+          return res.status(404).json({
+             msg: 'Oner or more rooms not found'
+          })
         }
       }
-      return true;
-    }),
 
-  body('room')
-    .notEmpty().withMessage('Room ID is required.')
-    .isMongoId().withMessage('Invalid room ID.')
-    .custom(async (value) => {
-      const roomExists = await Room.findById(value);
-      if (!roomExists) {
-        throw new Error('Room does not exist.');
-      }
-      return true;
-    }),
-];
+      next();
+      
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      success: false,
+      msg: 'Error to validate the updating the hotel'
+    })
+  }
+}
 
-// Validación para la edición de un hotel
-export const validateEditHotel = [
-  body('name')
-    .optional()
-    .isLength({ min: 3, max: 100 }).withMessage('Hotel name must be between 3 and 100 characters.')
-    .custom(async (value, { req }) => {
-      if (value) {
-        const hotelExists = await Hotel.findOne({ name: value, _id: { $ne: req.params.id } });
-        if (hotelExists) {
-          throw new Error('Hotel name must be unique.');
-        }
-      }
-      return true;
-    }),
+export const validateDeleteHotel = async (req, res, next) => {
+  try {
+    const { hotelId } = req.params;
+    const hotel = await Hotel.findById(hotelId);
 
-  body('direccion')
-    .optional()
-    .isLength({ min: 10, max: 200 }).withMessage('Address must be between 10 and 200 characters.')
-    .trim(),
+    if(!hotel){
+      return res.status(404).json({
+        msg: 'Hotel not found'
+      })
+    }
 
-  body('amenities')
-    .optional()
-    .isArray().withMessage('Amenities must be an array.')
-    .custom((value) => {
-      const validAmenities = ["WiFi", "Gym", "Pool", "Restaurant", "Spa"];
-      for (const amenity of value) {
-        if (!validAmenities.includes(amenity)) {
-          throw new Error(`${amenity} is not a valid amenity.`);
-        }
-      }
-      return true;
-    }),
-
-  body('category')
-    .optional()
-    .isMongoId().withMessage('Invalid category ID.')
-    .custom(async (value) => {
-      if (value) {
-        const categoryExists = await Category.findById(value);
-        if (!categoryExists) {
-          throw new Error('Category does not exist.');
-        }
-      }
-      return true;
-    }),
-
-  body('user')
-    .optional()
-    .isMongoId().withMessage('Invalid user ID.')
-    .custom(async (value) => {
-      if (value) {
-        const userExists = await User.findById(value);
-        if (!userExists) {
-          throw new Error('User does not exist.');
-        }
-      }
-      return true;
-    }),
-
-  body('event')
-    .optional()
-    .isMongoId().withMessage('Invalid event ID.')
-    .custom(async (value) => {
-      if (value) {
-        const eventExists = await Event.findById(value);
-        if (!eventExists) {
-          throw new Error('Event does not exist.');
-        }
-      }
-      return true;
-    }),
-
-  body('room')
-    .optional()
-    .isMongoId().withMessage('Invalid room ID.')
-    .custom(async (value) => {
-      if (value) {
-        const roomExists = await Room.findById(value);
-        if (!roomExists) {
-          throw new Error('Room does not exist.');
-        }
-      }
-      return true;
-    }),
-];
-
-// Validación para la eliminación de un hotel
-export const validateDeleteHotel = [
-  param('id').isMongoId().withMessage('Invalid hotel ID.'),
-  query('confirm').equals('true').withMessage('You must confirm the deletion with ?confirm=true in the URL.'),
-];
+    next();
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      success: false,
+      msg: 'Error to validate the deleting hotel'
+    })
+  }
+}

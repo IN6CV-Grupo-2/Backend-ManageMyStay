@@ -58,3 +58,5 @@ router.delete(
     ],
     cancelReservation
 )
+
+export default router;

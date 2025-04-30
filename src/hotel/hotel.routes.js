@@ -1,50 +1,60 @@
 import { Router } from 'express';
-import { createHotel, getHotels, getHotelById, updateHotel, deleteHotel } from '../hotel/hotel.controller.js';
-import { validateHotel, validateEditHotel, validateDeleteHotel } from '../middlewares/validate-hotel.js';
-import { validateRole } from "../middlewares/validate-role.js";
-import { validateJWT } from "../middlewares/validate-jwt.js";
+import { check } from 'express-validator';
+import {
+    createHotel,
+    getHotels,
+    getHotelById,
+    updateHotel,
+    deleteHotel
+} from './hotel.controller';
+import { validateFields } from '../middlewares/validarte-fields';
+import { validateJWT } from '../middlewares/validate-jwt';
+import { validateUpdateHotel, validateDeleteHotel } from '../middlewares/validate-hotel';
+import { haveRol } from '../middlewares/validate-role.js';
 
 const router = Router();
 
-// Route to create a hotel
-router.post('/',
+router.get("/", getHotels);
+
+router.get('/:id',getHotelById);
+
+router.post(
+    "/",
     [
         validateJWT,
-        validateRole('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
-        validateHotel
-    ], createHotel
+        haveRol("ADMIN_ROLE", "ADMIN_HOTEL_ROLE"),
+        check('name', 'Name is required').notEmpty(),
+        check('address', 'Address is required').notEmpty(),
+        check('starts', 'Number of starts is required').notEmpty(),
+        check('amenties', 'Amenties is required').notEmpty(),
+        validateFields
+    ],
+    createHotel
 );
 
-// Route to update a hotel
-router.put('/:id',
+
+router.put(
+    "/:id",
     [
-        validateJWT, 
-        validateRole('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'), 
-        validateEditHotel
-    ], updateHotel
+        validateJWT,
+        haveRol("ADMIN_ROLE", "ADMIN_HOTEL_ROLE"),
+        check('id', 'Hotel ID is invalid').isMongoId(),
+        validateUpdateHotel,
+        validateFields
+    ],
+    updateHotel
 );
 
-// Route to delete a hotel
-router.delete('/:id',
+
+router.delete(
+    "/:id",
     [
-        validateJWT, 
-        validateRole('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'), 
+        validateJWT,
+        check('id', 'Hotel ID is invalid').isMongoId(),
         validateDeleteHotel
-    ], deleteHotel
+    ],
+    deleteHotel
 );
 
-// Route to get all hotels
-router.get('/',[
-    validateJWT
-    ] , getHotels
-);
-
-// Route to get a hotel by ID
-router.get('/:id',
-    [
-        validateJWT
-    ], getHotelById
-
-);
 
 export default router;

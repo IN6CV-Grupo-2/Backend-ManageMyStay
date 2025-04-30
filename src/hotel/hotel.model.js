@@ -9,16 +9,15 @@ const HotelSchema = mongoose.Schema({
     type: String,
     required: [true, 'Addess is required']
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
+  starts: {
+    type: Number,
+    required: [true, 'The number of starts is required']
   },
   amenities: {
     type: String,
     required: true
   },
-  user: {
+  adminUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -26,16 +25,15 @@ const HotelSchema = mongoose.Schema({
   event: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
-    required: true
+    
   },
-  room: {
+  rooms: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room',
-    required: true
-  },
+  }],
   status: {
     type: Boolean,
-    default: "true"
+    default: true
   }
 });
 
