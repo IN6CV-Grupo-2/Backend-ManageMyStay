@@ -8,6 +8,10 @@ import limiter from '../src/middlewares/validar-cant-peticiones.js';
 import userRoutes from '../src/users/user.routes.js';
 import roomRoutes from '../src/rooms/room.routes.js';
 import authRoutes from '../src/auth/auth.routes.js'
+import limiter from '../src/middlewares/validate-number-request.js';
+import eventRoutes from '../src/event/event.routes.js';
+import hotelRoutes from "../src/hotel/hotel.routes.js";
+import reservationRoutes from '../src/reservations/reservation.routes.js';
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}));
@@ -22,11 +26,15 @@ const routes = (app) => {
     app.use("/manageMyStay/v1/auth", authRoutes);
     app.use("/manageMyStay/v1/user", userRoutes);
     app.use("/manageMyStay/v1/room", roomRoutes);
+    app.use('/manageMyStay/v1/event', eventRoutes);
+    app.use("/manageMyStay/v1/hotel", hotelRoutes);
+    app.use("/manageMyStay/v1/reservation", reservationRoutes);
 }
 
 const connectarDB = async () => {
     try {
         await dbConnection();
+        console.log('Database connecting successfully')
     } catch (error) {
         console.log('Error connecting to the database', error)
         process.exit(1);
