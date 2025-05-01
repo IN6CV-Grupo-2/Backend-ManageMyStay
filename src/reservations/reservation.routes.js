@@ -6,7 +6,7 @@ import {
  updateReservation,
  cancelReservation
  } from './reservation.controller';
-import { validateFields } from '../middlewares/validarte-fields';
+import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
 import { validateReservationsHotel, createReservation, validateUpdateReservation, validateCancelReservation } from '../middlewares/validate-reservation';
 

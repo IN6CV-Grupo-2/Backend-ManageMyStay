@@ -3,7 +3,7 @@ import { check } from "express-validator";
 import { getEventsByHotel, getEventById, updateEvent, createEvent, cancelEvent, verifyEventAvailable } from "./event.controller.js";
 import { validateJWT } from "../middlewares/validate-jwt.js";
 import { haveRol } from "../middlewares/validate-role.js";
-import { validateFields } from "../middlewares/validarte-fields.js";
+import { validateFields } from "../middlewares/validate-fields.js";
 import { validateUpdateEvent, validateCancelEvent, validateCreateEvent, validateEventsHotel } from '../middlewares/validate-events.js';
 
 const router = Router();

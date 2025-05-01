@@ -6,11 +6,7 @@ export const updateUser = async (req, res = response) => {
     try {
         const { id } = req.params;
         const { _id, password, email, ...data } = req.body;
-
-        if(password){
-            data.password = await hash(password);
-        }
-
+        
         const user = await User.findByIdAndUpdate(id, data, {new: true});
         res.status(200).json({
             success: true,
@@ -31,7 +27,6 @@ export const deleteUser = async (req, res = response) => {
         
         const { id } = req.params;
         const user = await User.findByIdAndUpdate(id, { status: false }, { new: true });
-        const autheticatedUser = req.user;
 
         res.status(200).json({
             success: true,
@@ -56,6 +51,10 @@ export const updatedPassword = async (req, res = response) => {
         const { id } = req.params;
         const { password } = req.body;
 
+        if(password){
+            data.password = await hash(password);
+        }
+
         const updatedUser = await User.findByIdAndUpdate(id, { password }, { new: true });
 
         res.status(200).json({
@@ -78,10 +77,10 @@ export const crateAdmin = async () => {
     try {
         const adminD = await User.findOne({ role: "ADMIN_ROLE" });
         if(!adminD){
-            const passwordEncrypted = await hash("Adm1n123");
+            const passwordEncrypted = await hash("Admin123");
             const admin = new User({
                 name: "Admin",
-                surname: "istrador",
+                surname: "Administrator",
                 email: "admin@gmail.com",
                 password: passwordEncrypted,
                 role: "ADMIN_ROLE",

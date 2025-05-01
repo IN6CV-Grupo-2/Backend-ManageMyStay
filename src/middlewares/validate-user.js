@@ -4,9 +4,9 @@ import User from '../users/user.model.js';
 export const validatePasswordUpdate = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { password, oPassword } = req.body;
+        const { password, oldPassword } = req.body;
 
-        if (!oPassword) {
+        if (!oldPassword) {
             return res.status(400).json({
                 success: false,
                 msg: "Old password is required"
@@ -21,7 +21,7 @@ export const validatePasswordUpdate = async (req, res, next) => {
             });
         }
 
-        const validPassword = await verify(user.password, oPassword);
+        const validPassword = await verify(user.password, oldPassword);
         if (!validPassword) {
             return res.status(400).json({
                 success: false,

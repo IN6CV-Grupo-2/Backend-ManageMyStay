@@ -23,23 +23,25 @@ export const validateUpdateHotel = async (req, res, next) => {
         })
       }
 
-      const events = data.events;
-      for(const event of events) {
-        const existsEvent = await Event.findById(event._id);
-        if(!existsEvent){
-          return res.status(404).json({
-            msg: 'One or more events not found'
-          })
+      if(Array.isArray(data.events)){
+        for(const event of data.events) {
+          const existsEvent = await Event.findById(event._id);
+          if(!existsEvent){
+            return res.status(404).json({
+              msg: 'One or more events not found'
+            })
+          }
         }
       }
 
-      const rooms = data.rooms;
-      for(const room of rooms){
-        const existsRoom = await Room.findById(room._id);
-        if(!existsRoom){
-          return res.status(404).json({
-             msg: 'Oner or more rooms not found'
-          })
+      if(Array.isArray(data.rooms)){
+        for(const room of data.rooms){
+          const existsRoom = await Room.findById(room._id);
+          if(!existsRoom){
+            return res.status(404).json({
+               msg: 'Oner or more rooms not found'
+            })
+          }
         }
       }
 

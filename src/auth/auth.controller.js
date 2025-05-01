@@ -32,7 +32,6 @@ export const register = async (req, res) => {
             surname: data.surname,
             email: data.email,
             password: encryptedPassword,
-            role: data.role
         })
 
         return res.status(200).json({

@@ -1,19 +1,19 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { updateUser, deleteUser, updatedPassword } from "./user.controller.js";
-import { validarCampos } from "../middlewares/validar-campos.js"
-import { validateUserDelete, validatePasswordUpdate, validateUpdateUSer } from "../middlewares/validar-user.js";
-import { validarJWT } from "../middlewares/validar-jwt.js";
+import { validateFields } from '../middlewares/validate-fields.js'; 
+import { validateUserDelete, validatePasswordUpdate, validateUpdateUSer } from "../middlewares/validate-user.js";
+import { validateJWT } from "../middlewares/validate-jwt.js";
 
 const router = Router();
 
 router.put(
     "/updatePassword/:id",
     [
-        validarJWT,
+        validateJWT,
         check("id", "id is not valid").isMongoId(),
         validatePasswordUpdate,
-        validarCampos
+        validateFields
     ],
     updatedPassword
 )
@@ -21,10 +21,10 @@ router.put(
 router.put(
     "/:id",
     [
-        validarJWT,
+        validateJWT,
         check("id", "id is invalid").isMongoId(),
         validateUpdateUSer,
-        validarCampos
+        validateFields
     ],
     updateUser
 )
@@ -32,7 +32,8 @@ router.put(
 router.delete(
     "/:id",
     [
-        validarJWT,
+        validateJWT,
+
         check("id", "id is invalid").isMongoId(),
         validateUserDelete
     ],

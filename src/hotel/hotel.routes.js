@@ -7,7 +7,7 @@ import {
     updateHotel,
     deleteHotel
 } from './hotel.controller';
-import { validateFields } from '../middlewares/validarte-fields';
+import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
 import { validateUpdateHotel, validateDeleteHotel } from '../middlewares/validate-hotel';
 import { haveRol } from '../middlewares/validate-role.js';
@@ -22,7 +22,7 @@ router.post(
     "/",
     [
         validateJWT,
-        haveRol("ADMIN_ROLE", "ADMIN_HOTEL_ROLE"),
+        haveRol("ADMIN_ROLE"),
         check('name', 'Name is required').notEmpty(),
         check('address', 'Address is required').notEmpty(),
         check('starts', 'Number of starts is required').notEmpty(),

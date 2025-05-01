@@ -1,10 +1,21 @@
-import { response, request } from "express";
 import Room from "./room.model.js";
+import Hotel from '../hotel/hotel.model.js';
 
 export const addRoom = async (req, res) => {
     try {
-        const room = new Room(req.body);
-        await room.save();
+        const data = req.body;
+
+        const room = await Room.create({
+            number: data.number,
+            type: data.type,
+            ability: data.ability,
+            priceNight: data.priceNight,
+            hotel: data.hotel
+        })
+
+        await Hotel.findByIdAndUpdate(hotel._id,{
+            $push: { rooms: room._id}
+        })
 
         res.status(201).json({
             success: true,
@@ -47,13 +58,6 @@ export const updateRoom = async (req, res) => {
         const { id } = req.params;
         const updatedRoom = await Room.findByIdAndUpdate(id, req.body, { new: true });
   
-        if(!updatedRoom) {
-            return res.status(404).json({
-                success: false, 
-                msg: "Room not found" 
-            });
-        }
-  
         res.status(200).json({ 
             success: true,
             msg: "Updated room", 
@@ -73,14 +77,11 @@ export const deleteRoom = async (req, res) => {
     try {
         const { id } = req.params;
         const room = await Room.findByIdAndUpdate(id, { status: false }, { new: true });
-  
-        if(!room) {
-            return res.status(404).json({ 
-                success: false,
-                msg: "Room not found" 
-            });
-        }
-  
+
+        await Hotel.findByIdAndUpdate(room.hotel._id, {
+            $pull: {rooms: room._id}
+        })
+
         res.status(200).json({ 
             success: true,
             msg: "Removed room", 
