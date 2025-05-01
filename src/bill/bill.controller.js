@@ -2,7 +2,16 @@ import Bill from './bill.model.js';
 
 export const createBill = async (req, res) => {
   try {
-    const bill = await Bill.create(req.body);
+    const user = req.user;
+    const  data = req.body;
+
+    const bill = await create({
+      costumer: user._id,
+      details: data.details,
+      reservations: data.reservations,
+      
+    })
+    
     res.status(201).json({ msg: 'Bill created successfully', bill });
   } catch (e) {
     console.error(e);

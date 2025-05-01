@@ -5,27 +5,29 @@ const BillSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  costumer:{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   details: {
     type: String,
     required: true
   },
-  provider: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Provider',
-    required: true
-  },
-  reservation: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Reservation',
-    required: true
-  },
+  reservations: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Reservation',
+      required: true
+    }
+  ],
   total: {
     type: Number,
-    default: 0
+    default: 0.00
   },
   status: {
     type: Boolean,
-    default: "true"
+    default: true
   }
 });
 
