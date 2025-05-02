@@ -2,11 +2,10 @@ import Bill from './bill.model.js';
 
 export const createBill = async (req, res) => {
   try {
-    const user = req.user;
     const  data = req.body;
 
     const bill = await create({
-      costumer: user._id,
+      costumer: data.reservation.guest._id,
       details: data.details,
       reservations: data.reservations,
       
@@ -56,10 +55,18 @@ export const getBillById = async (req, res) => {
 };
 
 export const updateBill = async (req, res) => {
-  const { id } = req.params;
   try {
-    const updated = await Bill.findByIdAndUpdate(id, req.body, { new: true });
-    res.status(200).json({ msg: 'Bill updated successfully', bill: updated });
+     const { billId } = req.params;
+     const {details, reservations} = req.body;
+     const  data = {details, reservations}
+     const bill = await Bill.findByIdAndUpdate(billId, data,{new: true});
+    res.status(200).json({ 
+      costumer: bill.costumer,
+      emitionDate:bill.emitionDate,
+      details: bill.details,
+      reservations: bill.reservations,
+      total: bill.total
+    });
   } catch (e) {
     console.error(e);
     res.status(500).json({ msg: 'Error while updating the bill' });
