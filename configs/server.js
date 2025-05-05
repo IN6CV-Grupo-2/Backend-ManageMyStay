@@ -9,7 +9,6 @@ import billRoutes from '../src/bill/bill.routes.js';
 import userRoutes from '../src/user/user.routes.js';
 import roomRoutes from '../src/room/room.routes.js';
 import authRoutes from '../src/auth/auth.routes.js'
-import limiter from '../src/middlewares/validate-number-request.js';
 import eventRoutes from '../src/event/event.routes.js';
 import hotelRoutes from "../src/hotel/hotel.routes.js";
 import reservationRoutes from '../src/reservations/reservation.routes.js';

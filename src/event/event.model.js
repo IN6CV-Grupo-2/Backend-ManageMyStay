@@ -1,6 +1,6 @@
-import { schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-const eventSchema = new schema({
+const eventSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required']
@@ -21,7 +21,7 @@ const eventSchema = new schema({
         type: String,
      }],
     hotel: {
-        type: schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Hotel",
         required: true,
     },

@@ -6,10 +6,10 @@ import {
     getHotelById,
     updateHotel,
     deleteHotel
-} from './hotel.controller';
-import { validateFields } from '../middlewares/validate-fields';
-import { validateJWT } from '../middlewares/validate-jwt';
-import { validateUpdateHotel, validateDeleteHotel } from '../middlewares/validate-hotel';
+} from './hotel.controller.js';
+import { validateFields } from '../middlewares/validate-fields.js';
+import { validateJWT } from '../middlewares/validate-jwt.js';
+import { validateUpdateHotel, validateDeleteHotel } from '../middlewares/validate-hotel.js';
 import { haveRol } from '../middlewares/validate-role.js';
 
 const router = Router();

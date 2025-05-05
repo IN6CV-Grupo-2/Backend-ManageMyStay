@@ -1,7 +1,6 @@
-import Hotel from '../models/hotel.model.js';
-import Event from '../models/event.model.js';
-import Room from '../models/room.model.js';
-
+import Hotel from '../hotel/hotel.model.js'; 
+import Event from '../event/event.model.js';
+import Room from '../room/room.model.js';
 
 export const validateUpdateHotel = async (req, res, next) => {
   try {

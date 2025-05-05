@@ -5,10 +5,10 @@ import {
  createReservation,
  updateReservation,
  cancelReservation
- } from './reservation.controller';
-import { validateFields } from '../middlewares/validate-fields';
-import { validateJWT } from '../middlewares/validate-jwt';
-import { validateReservationsHotel, createReservation, validateUpdateReservation, validateCancelReservation } from '../middlewares/validate-reservation';
+ } from './reservation.controller.js';
+import { validateFields } from '../middlewares/validate-fields.js';
+import { validateJWT } from '../middlewares/validate-jwt.js';
+import { validateReservationsHotel, validateUpdateReservation, validateCancelReservation } from '../middlewares/validate-reservation.js';
 
 const router = Router();
 
@@ -27,7 +27,7 @@ router.post(
         validateJWT,
         check('checkIn', 'Check-in date is required').notEmpty().isISO8601(),
         check('checkOut', 'check-out date is required').notEmpty().isISO8601(),
-        check('rooms', 'Rooms must be an array of room ID"s'),isArray({min: 1}),
+        check('rooms', 'Rooms must be an array of room ID"s').isArray({min: 1}),
         check('hotel','Hotel ID is required').notEmpty().isMongoId(),
         validateFields
     ],

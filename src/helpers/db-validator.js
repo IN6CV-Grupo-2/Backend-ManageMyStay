@@ -1,10 +1,10 @@
 
 import User from '../user/user.model.js';
 
-export const existenteEmail = async (correo = ' ') => {
-    const existeEmail = await User.findOne({ correo });
+export const existenteEmail = async (email = ' ') => {
+    const existeEmail = await User.findOne({ email });
     if(existeEmail){
-        throw new Error(`El correo ${ correo } ya existe en la base de datos`);
+        throw new Error(`El correo ${ email } ya existe en la base de datos`);
     }
 }
 
