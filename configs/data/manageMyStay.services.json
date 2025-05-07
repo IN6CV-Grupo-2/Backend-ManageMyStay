@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "681adc73d3e77811c828cb38"
+  },
+  "name": "Servicio de Spa",
+  "description": "Relajación completa con acceso a jacuzzi y masajes",
+  "price": 80,
+  "status": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "681ade78d3e77811c828cb3b"
+  },
+  "name": "Servicio de Limpieza",
+  "description": "Servicio de limpieza profesional para habitaciones, baños y áreas comunes del hotel.",
+  "price": 90,
+  "status": false,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "681ae38ea90444a3fca8ab66"
+  },
+  "name": "Servicio de mantenimiento",
+  "description": "Servicio de limpieza profesional para habitaciones, baños y áreas comunes del hotel.",
+  "price": 50,
+  "status": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "681ae3bea90444a3fca8ab69"
+  },
+  "name": "Servicio de catering",
+  "description": "Servicio de limpieza profesional para habitaciones, baños y áreas comunes del hotel.",
+  "price": 50,
+  "status": true,
+  "__v": 0
+}]
