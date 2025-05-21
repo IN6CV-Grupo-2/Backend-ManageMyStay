@@ -2,26 +2,22 @@ import { response } from "express";
 import { hash } from "argon2";
 import User from "./user.model.js";
 
-export const getUsers = async (req, res ) => {
+export const getUsers = async (req, res) => {
     try {
-        
-        const users = await User.find({ status: true })
-            .populate("createdBy", "name")
-            .populate("updatedBy", "name"); 
-
-        res.status(200).json({  
+        const users = await User.find({ status: true });
+        res.status(200).json({
             success: true,
             msg: "Get users successfully",
-            users
+            users,
         });
     } catch (error) {
         res.status(500).json({
             success: false,
             msg: "Error getting users",
-            error: error.message
+            error: error.message,
         });
     }
-}
+};
 
 export const updateUser = async (req, res = response) => {
     try {
