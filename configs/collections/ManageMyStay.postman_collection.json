@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "331cc4cc-bc58-432b-8dad-119070f9a0bb",
+		"name": "ManageMyStay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37413966"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Juan\",\r\n  \"surname\":\"Pérez\",\r\n  \"email\": \"juan.perez@example.com\",\r\n  \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\":\"Admin123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar servicios",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhYjhhMGRlN2RlODE3OTBkYmRkY2YiLCJpYXQiOjE3NDY1ODk5MDYsImV4cCI6MTc0NjU5MzUwNn0.in0MN7lOr4vDiQNlyFHpZ5gtxpSQuhdMzJZnWn0ZYnA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/service/delete/681ade78d3e77811c828cb3b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"service",
+						"delete",
+						"681ade78d3e77811c828cb3b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agregar service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhYjhhMGRlN2RlODE3OTBkYmRkY2YiLCJpYXQiOjE3NDY1ODk5MDYsImV4cCI6MTc0NjU5MzUwNn0.in0MN7lOr4vDiQNlyFHpZ5gtxpSQuhdMzJZnWn0ZYnA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Servicio de Limpieza\",\r\n    \"description\": \"Servicio de limpieza profesional para habitaciones, baños y áreas comunes del hotel.\",\r\n    \"price\": 50.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/service/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"service",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar Servicios",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhYjhhMGRlN2RlODE3OTBkYmRkY2YiLCJpYXQiOjE3NDY1ODk5MDYsImV4cCI6MTc0NjU5MzUwNn0.in0MN7lOr4vDiQNlyFHpZ5gtxpSQuhdMzJZnWn0ZYnA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Servicio de Limpieza\",\r\n    \"price\":90.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/service/update/681ade78d3e77811c828cb3b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"service",
+						"update",
+						"681ade78d3e77811c828cb3b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mostrar servicio",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhYjhhMGRlN2RlODE3OTBkYmRkY2YiLCJpYXQiOjE3NDY1ODk5MDYsImV4cCI6MTc0NjU5MzUwNn0.in0MN7lOr4vDiQNlyFHpZ5gtxpSQuhdMzJZnWn0ZYnA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/service/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"service",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mostrar servicio por id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhYjhhMGRlN2RlODE3OTBkYmRkY2YiLCJpYXQiOjE3NDY1ODk5MDYsImV4cCI6MTc0NjU5MzUwNn0.in0MN7lOr4vDiQNlyFHpZ5gtxpSQuhdMzJZnWn0ZYnA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/service/search/681adc73d3e77811c828cb38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"service",
+						"search",
+						"681adc73d3e77811c828cb38"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mostrar servicio por nombre",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhYjhhMGRlN2RlODE3OTBkYmRkY2YiLCJpYXQiOjE3NDY1ODk5MDYsImV4cCI6MTc0NjU5MzUwNn0.in0MN7lOr4vDiQNlyFHpZ5gtxpSQuhdMzJZnWn0ZYnA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/manageMyStay/v1/service/name/Servicio de Spa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"manageMyStay",
+						"v1",
+						"service",
+						"name",
+						"Servicio de Spa"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

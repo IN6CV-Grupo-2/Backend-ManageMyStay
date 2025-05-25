@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "682d4f1bb7c7d729cab997cc"
+  },
+  "name": "Admin",
+  "surname": "Administrator",
+  "email": "admin@gmail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$uuN28GkXM6poZsckmw+G1A$P9s5msP9+F3X40R59JidT4abg828RrNRM1gS5f95Gxw",
+  "role": "admin",
+  "history": [],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-21T03:57:15.998Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T20:15:19.018Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "683393e8467ed927adbc6f55"
+  },
+  "name": "Homero J",
+  "surname": "Simpson",
+  "email": "homero10@gmail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$FwRXOxXHgm52OBSiTL8xhQ$48FGPxPzDMNYwYyObijPgREeaklb+XcWTCoDvne8Bio",
+  "role": "CLIENT_ROLE",
+  "history": [],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-25T22:04:24.780Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T22:05:47.757Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6833953a467ed927adbc6f92"
+  },
+  "name": "David",
+  "surname": "Gilmour",
+  "email": "ummawumma@gmail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$8nAXdejoGpNl5C0I/e7qYw$Irw/QUmiAa29tPBs+V4ssWa82oLBg94Boda9caxcQ0o",
+  "role": "CLIENT_ROLE",
+  "history": [],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-25T22:10:02.691Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-25T22:10:02.691Z"
+  }
+}]
