@@ -4,52 +4,58 @@ import Hotel from '../hotel/hotel.model.js';
 export const addRoom = async (req, res) => {
     try {
         const data = req.body;
-
+        
         const room = await Room.create({
-            number: data.number,
-            type: data.type,
-            ability: data.ability,
-            priceNight: data.priceNight,
-            hotel: data.hotel
-        })
+          number: data.number,
+          type: data.type,
+          ability: data.ability,
+          priceNight: data.priceNight,
+          hotel: data.hotel
+        });
 
-        await Hotel.findByIdAndUpdate(hotel._id,{
-            $push: { rooms: room._id}
-        })
+        await Hotel.findByIdAndUpdate(data.hotel, {
+          $push: { rooms: room._id }
+        });
 
         res.status(201).json({
-            success: true,
-            msg: "Room added",  
-            room 
+          success: true,
+          msg: "Room added",
+          room
         });
-    }catch (error) {
-        res.status(400).json({ 
-            success: false,
-            msg: "Error adding room", 
-            error 
-        });
+    } catch (error) {
+      console.error(error);
+      res.status(400).json({
+        success: false,
+        msg: "Error adding room",
+        error
+      });
     }
 };
 
 export const getRoomsAvailable = async (req, res) => {
     try {
-        const { hotelId } = req.params;
-
-        const rooms = await Room.find({ 
-            status: true,
-            hotel: hotelId
-        }).populate('hotel', 'name address');
-
-        res.status(200).json({ 
-            success: true,
-            rooms 
-        });
+      const { id } = req.params;
+    
+      console.log("Hotel ID recibido:", id);
+    
+      const rooms = await Room.find({ 
+        status: true,
+        hotel: id
+      }).populate('hotel', 'name address');
+    
+      console.log("Rooms encontrados:", rooms);
+    
+      res.status(200).json({ 
+        success: true,
+        rooms 
+      });
     } catch (error) {
-        res.status(500).json({ 
-            success: false,
-            msg: "Error getting available rooms for hotel", 
-            error 
-        });
+      console.error(error);
+      res.status(500).json({ 
+        success: false,
+        msg: "Error getting available rooms for hotel", 
+        error 
+      });
     }
 };
   
