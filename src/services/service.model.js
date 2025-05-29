@@ -20,11 +20,6 @@ const ServiceSchema = Schema({
     },
 })
 
-ServiceSchema.methods.toJSON = function () {
-    const { __v, _id, ...service } = this.toObject();
-    service.uid = _id;
-    return service;
-}
 
 export default model('Service', ServiceSchema);
 

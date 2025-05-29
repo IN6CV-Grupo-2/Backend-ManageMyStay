@@ -30,7 +30,7 @@ const routes = (app) => {
     app.use("/manageMyStay/v1/room", roomRoutes);
     app.use('/manageMyStay/v1/event', eventRoutes);
     app.use("/manageMyStay/v1/hotel", hotelRoutes);
-    app.use("/manageMyStay/v1/reservation", reservationRoutes);
+    app.use("/manageMyStay/v1/reservations", reservationRoutes);
     app.use("/manageMyStay/v1/service", serviceRoutes);
 
 }

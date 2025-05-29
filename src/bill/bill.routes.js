@@ -10,14 +10,14 @@ const router = Router();
 
 router.post('/',
     [
-        validateJWT,
-        haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
+        //validateJWT,
+        //haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
         check('details', 'Details field is required').notEmpty(),
         check('reservation', 'Reservation is required').notEmpty(),
         check('reservation', 'Reservation ID is invalid').isMongoId(),
         check('total', 'Total must be a non-negative number').isFloat({ min: 0 }),
         validateFields,
-        validateCreateBill
+        //validateCreateBill
     ], createBill
 );
 
@@ -27,8 +27,8 @@ router.get('/:id', getBillById);
 
 router.put('/:id',
     [
-        validateJWT,
-        haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
+        //validateJWT,
+        //haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
         validateFields,
         validateUpdateBill
     ], updateBill
@@ -36,8 +36,8 @@ router.put('/:id',
 
 router.delete('/:id',
     [
-        validateJWT,
-        haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
+        //validateJWT,
+        //haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
         check('id', 'Bill ID is invalid').isMongoId(),
         validateDeleteBill
     ], deleteBill

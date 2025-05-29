@@ -19,6 +19,10 @@ const reservationSchema = Schema({
         ref: 'Room',
         required:[true,'Room is required']
     }],
+    services:[{
+        type: Schema.Types.ObjectId,    // El cliente al reservar solicita los servicios que desee
+        ref: 'Service'
+    }],
     hotel: {
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
