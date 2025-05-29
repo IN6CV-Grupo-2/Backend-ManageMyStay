@@ -15,7 +15,7 @@ const calculateTotalReservations = async (reservations) => {
 
     const { checkIn, checkOut, room, services } = reservation;
 
-    // Calcular número de noches
+    // Calcular numero de noches
     const nights =
       (new Date(checkOut).getTime() - new Date(checkIn).getTime()) /
       (1000 * 60 * 60 * 24);
