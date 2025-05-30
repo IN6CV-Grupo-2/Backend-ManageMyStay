@@ -1,0 +1,171 @@
+[{
+  "_id": {
+    "$oid": "68366ab9589ec3d3226f1385"
+  },
+  "number": "100",
+  "type": "Sample",
+  "ability": "3 person",
+  "priceNight": 340,
+  "status": true,
+  "hotel": {
+    "$oid": "68355a02805726f634913b12"
+  },
+  "createdAt": {
+    "$date": "2025-05-28T01:45:29.505Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:36:44.191Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "683677369372b2d28f7bc340"
+  },
+  "number": "99",
+  "type": "Double",
+  "ability": "4 person",
+  "priceNight": 95,
+  "status": false,
+  "hotel": {
+    "$oid": "68355a02805726f634913b12"
+  },
+  "createdAt": {
+    "$date": "2025-05-28T02:38:46.961Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-28T02:38:50.305Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68395247506017908eabc92f"
+  },
+  "number": "100",
+  "type": "Suit",
+  "ability": "4 person",
+  "priceNight": 494,
+  "status": true,
+  "hotel": {
+    "$oid": "683951af506017908eabc925"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T06:37:59.679Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T06:37:59.679Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6839fd7329124e010535fb1d"
+  },
+  "number": "101",
+  "type": "Suit",
+  "ability": "4 person",
+  "priceNight": 494,
+  "status": true,
+  "hotel": {
+    "$oid": "683951af506017908eabc925"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T18:48:19.744Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:48:19.744Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6839fd8429124e010535fb25"
+  },
+  "number": "103",
+  "type": "Suit",
+  "ability": "5 person",
+  "priceNight": 500,
+  "status": true,
+  "hotel": {
+    "$oid": "683951af506017908eabc925"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T18:48:36.598Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:48:36.598Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6839fd9b29124e010535fb31"
+  },
+  "number": "100",
+  "type": "Double",
+  "ability": "2 person",
+  "priceNight": 350,
+  "status": true,
+  "hotel": {
+    "$oid": "6839fd4d29124e010535fb14"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T18:48:59.107Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:48:59.107Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6839fda729124e010535fb39"
+  },
+  "number": "101",
+  "type": "Sample",
+  "ability": "1 Person",
+  "priceNight": 300,
+  "status": true,
+  "hotel": {
+    "$oid": "6839fd4d29124e010535fb14"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T18:49:11.562Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:49:11.562Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6839fdb729124e010535fb41"
+  },
+  "number": "103",
+  "type": "Suit",
+  "ability": "3 person",
+  "priceNight": 500,
+  "status": true,
+  "hotel": {
+    "$oid": "6839fd4d29124e010535fb14"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T18:49:27.084Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:49:27.084Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6839fdcf29124e010535fb4e"
+  },
+  "number": "101",
+  "type": "Suit",
+  "ability": "3 person",
+  "priceNight": 400,
+  "status": true,
+  "hotel": {
+    "$oid": "68355a02805726f634913b12"
+  },
+  "createdAt": {
+    "$date": "2025-05-30T18:49:51.741Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-30T18:49:51.741Z"
+  }
+}]

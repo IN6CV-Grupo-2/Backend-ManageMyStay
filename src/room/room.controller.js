@@ -3,19 +3,20 @@ import Hotel from '../hotel/hotel.model.js';
 
 export const addRoom = async (req, res) => {
     try {
+        console.log("BODY RECIBIDO:", req.body);
         const data = req.body;
 
-        const room = await Room.create({
+         const room = await Room.create({
             number: data.number,
             type: data.type,
             ability: data.ability,
             priceNight: data.priceNight,
-            hotel: data.hotel
-        })
+            hotel: data.hotel  
+        });
 
-        await Hotel.findByIdAndUpdate(hotel._id,{
-            $push: { rooms: room._id}
-        })
+        await Hotel.findByIdAndUpdate(data.hotel, {
+            $push: { rooms: room._id }
+        });
 
         res.status(201).json({
             success: true,
@@ -23,7 +24,7 @@ export const addRoom = async (req, res) => {
             room 
         });
     }catch (error) {
-        res.status(400).json({ 
+        res.status(500).json({ 
             success: false,
             msg: "Error adding room", 
             error 
@@ -33,11 +34,20 @@ export const addRoom = async (req, res) => {
 
 export const getRoomsAvailable = async (req, res) => {
     try {
-        const { hotelId } = req.params;
+        const { id } = req.params;
+
+        const hotel = await Hotel.findById(id);
+
+        if (!hotel) {
+            return res.status(404).json({
+                success: false,
+                msg: "Hotel not found",
+            });
+        }
 
         const rooms = await Room.find({ 
             status: true,
-            hotel: hotelId
+            hotel: hotel._id
         }).populate('hotel', 'name address');
 
         res.status(200).json({ 
@@ -48,7 +58,7 @@ export const getRoomsAvailable = async (req, res) => {
         res.status(500).json({ 
             success: false,
             msg: "Error getting available rooms for hotel", 
-            error 
+            error: error.message
         });
     }
 };
@@ -56,6 +66,7 @@ export const getRoomsAvailable = async (req, res) => {
 export const updateRoom = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log(id);
         const updatedRoom = await Room.findByIdAndUpdate(id, req.body, { new: true });
   
         res.status(200).json({ 

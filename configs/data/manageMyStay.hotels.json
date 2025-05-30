@@ -1,120 +1,87 @@
 [{
   "_id": {
-    "$oid": "68323d6a701a4eafa8df8d3d"
+    "$oid": "68355a02805726f634913b12"
   },
-  "name": "Hotel Jefferson P",
-  "address": "7ma Av Zona 10 Mixco",
-  "starts": 5,
-  "amenities": "Jacuzzi propio, vista al mar",
-  "price": 120,
-  "rating": 5,
-  "reviews": 10,
-  "image": "https://th.bing.com/th/id/OIP.yA2SX_UF5erXG5gE0OSakwHaE7?rs=1&pid=ImgDetMain",
-  "adminUser": {
-    "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
-  },
-  "events": [],
-  "rooms": [],
-  "status": true,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "68323e10701a4eafa8df8d45"
-  },
-  "name": "Hotel Po",
-  "address": "Quiche avenida",
-  "starts": 2,
-  "amenities": "Piscina, Servicio Al Cuarto",
-  "price": 100,
-  "rating": 3,
-  "reviews": 15,
-  "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/74/1d/d2/santo-tomas-hotel.jpg?w=1200&h=-1&s=1",
-  "adminUser": {
-    "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
-  },
-  "events": [],
-  "rooms": [],
-  "status": false,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "68338531df68da13ee86e9b3"
-  },
-  "name": "Hotel Quichelense",
-  "address": "Quiche avenida hospitalaria Po",
+  "name": "Trivago",
+  "address": "4 calle D 7-56 cayala",
   "starts": 4,
-  "amenities": "Piscina, Servicio Al Cuarto",
-  "price": 50,
-  "rating": 5,
-  "reviews": 3,
-  "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/74/1d/d2/santo-tomas-hotel.jpg?w=1200&h=-1&s=1",
-  "adminUser": {
-    "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
-  },
-  "events": [],
-  "rooms": [],
-  "status": true,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "68338941df68da13ee86e9d6"
-  },
-  "name": "Hotel Pinulito",
-  "address": "Santa Catarina Pinula 0-95 Av 1",
-  "starts": 3,
-  "amenities": "Estacionamiento, Piscina",
-  "price": 80,
-  "rating": 5,
-  "reviews": 0,
-  "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/c1/ca/5f/hotel-iv-centenario.jpg?w=900&h=-1&s=1",
-  "adminUser": {
-    "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
-  },
-  "events": [],
-  "rooms": [],
-  "status": true,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "68338a67df68da13ee86e9e1"
-  },
-  "name": "Hotel Petenero",
-  "address": "Peten Zona 5 10 Av",
-  "starts": 2,
-  "amenities": "Acceso al Lago, Acceso Al Bosque",
-  "price": 120,
+  "amenities": "Agua Fria",
+  "price": 340,
   "rating": 4,
-  "reviews": 15,
-  "image": "https://www.guatemala.com/fotos/201803/Hotel-Peten-Esplendido3-885x500.jpg",
+  "reviews": 500,
+  "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kayak.com.gt%2FHoteles-en-Ciudad-de-Guatemala.43889.hotel.ksp&psig=AOvVaw2At7T8oKW1ze7fsBxgSv38&ust=1748413223659000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIi-zfqAw40DFQAAAAAdAAAAABAJ",
   "adminUser": {
     "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
   },
   "events": [],
-  "rooms": [],
+  "rooms": [
+    {
+      "$oid": "68366ab9589ec3d3226f1385"
+    },
+    {
+      "$oid": "6839fdcf29124e010535fb4e"
+    }
+  ],
   "status": true,
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "68338b13df68da13ee86e9e8"
+    "$oid": "683951af506017908eabc925"
   },
-  "name": "Hotel Esquipulas",
-  "address": "Esquipulas Iglesia San Cristo 5 Av",
-  "starts": 1,
-  "amenities": "Piscina, Comedor 1er Piso",
-  "price": 90,
-  "rating": 3,
-  "reviews": 9,
-  "image": "https://live.staticflickr.com/3662/3466498873_8817424fed_z.jpg",
+  "name": "Camino Real",
+  "address": "Zona 10",
+  "starts": 5,
+  "amenities": "Bufet, Piscinas, Restaurantes, Tiendas, Playa",
+  "price": 500,
+  "rating": 5,
+  "reviews": 999998,
+  "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/509957921.jpg?k=cd6cb6f7a90d9241592d3c5cd5a31d1fd3a0c9ce3ff0087e78b1c4ae710eb7f7&o=&hp=1",
   "adminUser": {
     "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
   },
   "events": [],
-  "rooms": [],
+  "rooms": [
+    {
+      "$oid": "68395247506017908eabc92f"
+    },
+    {
+      "$oid": "6839fd7329124e010535fb1d"
+    },
+    {
+      "$oid": "6839fd8429124e010535fb25"
+    }
+  ],
+  "status": true,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6839fd4d29124e010535fb14"
+  },
+  "name": "Hilton Hotel",
+  "address": " 9.5 CA-1 East,",
+  "starts": 5,
+  "amenities": "Bufet, Piscinas, Restaurantes, Tiendas, Playa",
+  "price": 450,
+  "rating": 4.7,
+  "reviews": 9997,
+  "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/6e/ae/f1/motor-lobby.jpg?w=900&h=500&s=1",
+  "adminUser": {
+    "$oid": "64b7f8c2e4b0f5a1d2c3e4f5"
+  },
+  "events": [],
+  "rooms": [
+    {
+      "$oid": "6839fd9b29124e010535fb31"
+    },
+    {
+      "$oid": "6839fda729124e010535fb39"
+    },
+    {
+      "$oid": "6839fdb729124e010535fb41"
+    }
+  ],
   "status": true,
   "__v": 0
 }]

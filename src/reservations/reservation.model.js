@@ -14,11 +14,11 @@ const reservationSchema = Schema({
         ref: 'User',
         required: [true, 'The Guest is required']
     },
-    rooms:[{
+    room:{
         type: Schema.Types.ObjectId,
         ref: 'Room',
         required:[true,'Room is required']
-    }],
+    },
     hotel: {
         type: Schema.Types.ObjectId,
         ref: 'Hotel',

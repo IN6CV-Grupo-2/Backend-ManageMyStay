@@ -5,12 +5,15 @@ import { generarJWT } from "../helpers/generate-jwt.js";
 export const login = async (req, res) => {
   try {
     const user = req.user;
-    const token = await generarJWT(user.id);
+    const token = await generarJWT(user.id, user.role);
     return res.status(200).json({
       msg: "Successful login",
       userDetails: {
         token: token,
         uId: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
       },
     });
   } catch (e) {

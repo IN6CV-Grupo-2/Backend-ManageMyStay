@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const userSchema = new Schema(
+const roomSchema = new Schema(
     {
         number: {
             type: String,
@@ -34,9 +34,9 @@ const userSchema = new Schema(
     }
 );
 
-userSchema.methods.toJSON = function () {
-    const { __v, _id, ...room } = this.toObject();
+roomSchema.methods.toJSON = function () {
+    const { __v, ...room } = this.toObject();
     return room;
 }
 
-export default model('Room', userSchema);
+export default model('Room', roomSchema);

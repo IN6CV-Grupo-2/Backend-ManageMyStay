@@ -21,13 +21,13 @@ router.get('/:id',getHotelById);
 router.post(
     "/",
     [
-        //validateJWT,
-        //haveRol("ADMIN_ROLE"),
+        validateJWT,
+        haveRol("ADMIN_ROLE"),
         check('name', 'Name is required').notEmpty(),
         check('address', 'Address is required').notEmpty(),
         check('starts', 'Number of starts is required').notEmpty(),
         check('amenities', 'Amenities is required').notEmpty(),
-        //validateFields
+        validateFields
     ],
     createHotel
 );
@@ -36,10 +36,10 @@ router.post(
 router.put(
     "/:id",
     [
-        //validateJWT,
-        //haveRol("ADMIN_ROLE", "ADMIN_HOTEL_ROLE"),
+        validateJWT,
+        haveRol("ADMIN_ROLE", "ADMIN_HOTEL_ROLE"),
         check('id', 'Hotel ID is invalid').isMongoId(),
-        //validateUpdateHotel,
+        validateUpdateHotel,
         validateFields
     ],
     updateHotel
@@ -49,9 +49,9 @@ router.put(
 router.delete(
     "/:id",
     [
-        //validateJWT,
+        validateJWT,
         check('id', 'Hotel ID is invalid').isMongoId(),
-        //validateDeleteHotel
+        validateDeleteHotel
     ],
     deleteHotel
 );

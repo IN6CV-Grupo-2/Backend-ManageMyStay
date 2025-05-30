@@ -4,11 +4,13 @@ import {
  getReservationByHotel,
  createReservation,
  updateReservation,
- cancelReservation
+ cancelReservation,
+ getReservationByUser,
+ getReservationById
  } from './reservation.controller.js';
 import { validateFields } from '../middlewares/validate-fields.js';
 import { validateJWT } from '../middlewares/validate-jwt.js';
-import { validateReservationsHotel, validateUpdateReservation, validateCancelReservation } from '../middlewares/validate-reservation.js';
+import { validateReservationsHotel, validateUpdateReservation, validateCancelReservation,} from '../middlewares/validate-reservation.js';
 
 const router = Router();
 
@@ -21,14 +23,27 @@ router.get(
     getReservationByHotel
 )
 
+router.get(
+    "/reservationUser/:id",
+    [
+        validateJWT
+    ],
+    getReservationByUser
+)
+
+router.get(
+    "/findReservation/:id",
+    [
+        validateJWT
+    ],
+    getReservationById
+)
 router.post(
     "/",
     [
         validateJWT,
         check('checkIn', 'Check-in date is required').notEmpty().isISO8601(),
         check('checkOut', 'check-out date is required').notEmpty().isISO8601(),
-        check('rooms', 'Rooms must be an array of room ID"s').isArray({min: 1}),
-        check('hotel','Hotel ID is required').notEmpty().isMongoId(),
         validateFields
     ],
     createReservation
