@@ -8,26 +8,21 @@ const calculateTotalReservations = async (reservations) => {
 
   for (const reservationId of reservations) {
     const reservation = await Reservation.findById(reservationId)
-      .populate("room")
+      .populate("rooms")
       .populate("services");
 
     if (!reservation) continue;
 
-    const { checkIn, checkOut, room, services } = reservation;
+    const { checkIn, checkOut, rooms, services } = reservation;
 
-    // Calcular numero de noches
-    const nights =
-      (new Date(checkOut).getTime() - new Date(checkIn).getTime()) /
-      (1000 * 60 * 60 * 24);
+    // Calcular número de noches
+    const nights = (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24);
 
-    // Sumar precio habitación por noches
-    const roomCost = nights * room.priceNight;
+    // Calcular precio total de habitaciones
+    const roomCost = rooms.reduce((sum, room) => sum + room.priceNight * nights, 0);
 
-    // Sumar servicios extra
-    const servicesCost = services.reduce(
-      (sum, s) => sum + s.price,
-      0
-    );
+    // Calcular precio total de servicios
+    const servicesCost = services.reduce((sum, s) => sum + s.price, 0);
 
     total += roomCost + servicesCost;
   }
@@ -37,14 +32,26 @@ const calculateTotalReservations = async (reservations) => {
 
 export const createBill = async (req, res) => {
   try {
-    const data = req.body;
+    const { reservations, details } = req.body;
 
-    const total = await calculateTotalReservations(data.reservations);
+    if (!reservations || reservations.length === 0) {
+      return res.status(400).json({ msg: "At least one reservation is required" });
+    }
+
+    const total = await calculateTotalReservations(reservations);
+
+    // Obtener el guest desde la primera reserva
+    const reservation = await Reservation.findById(reservations[0]);
+    const guestId = reservation?.guest;
+
+    if (!guestId) {
+      return res.status(400).json({ msg: "Could not retrieve guest from reservation" });
+    }
 
     const bill = await Bill.create({
-      costumer: data.reservation.guest._id,
-      details: data.details,
-      reservations: data.reservations,
+      costumer: guestId,
+      details,
+      reservations,
       total,
     });
 
