@@ -24,24 +24,24 @@ export const validateEventsHotel = async (req, res, next) => {
   }
 }
 
-export const  validateCreateEvent = async (req, res, next) => {
+export const validateCreateEvent = async (req, res, next) => {
   try {
-      const { hotelId } = req.body;
-      const hotel = await Hotel.findById(hotelId);
+    const hotelId = req.body.hotel || req.body.hotelId;
+    const hotel = await Hotel.findById(hotelId);
 
-      if(!hotel){
-        return res.status(404).json({
-          msg: 'Hotel not found or not exists'
-        })
-      }
+    if (!hotel) {
+      return res.status(404).json({
+        msg: 'Hotel not found or not exists'
+      });
+    }
 
-      next();
+    next();
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({
-      sucess: false,
-      msg: 'Error to creating Event'
-    })
+      success: false,
+      msg: 'Error validating Event creation'
+    });
   }
 }
 

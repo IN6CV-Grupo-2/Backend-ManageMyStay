@@ -34,7 +34,7 @@ router.post(
         check("description", "Description is required").notEmpty(),
         check("startDate", "Start date is required").notEmpty().isISO8601(),
         check("finishDate", "Finish date is required").notEmpty().isISO8601(),
-        check("hotel", "Hotel ID is required").notEmpty().isMongoId(),
+        check("hotelId", "Hotel ID is required").notEmpty().isMongoId(),
         validateCreateEvent,
         validateFields
     ],

@@ -26,8 +26,8 @@ export const validateCreateBill = async (req, res, next) => {
 
 export const validateUpdateBill = async (req, res, next) => {
   try {
-    const { billId } = req.params;
-    const bill = await Bill.findById(billId);
+    const { id } = req.params;
+    const bill = await Bill.findById(id);
     const data = req.body;
 
     if (!bill) {
@@ -60,8 +60,8 @@ export const validateUpdateBill = async (req, res, next) => {
 
 export const validateDeleteBill = async (req, res, next) => {
   try {
-    const { billId } = req.params;
-    const bill = await Bill.findById(billId);
+    const { id } = req.params;
+    const bill = await Bill.findById(id);
 
     if (!bill) {
       return res.status(404).json({

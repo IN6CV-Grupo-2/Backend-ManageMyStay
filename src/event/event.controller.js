@@ -3,18 +3,18 @@ import Event from "../event/event.model.js";
 import Hotel from "../hotel/hotel.model.js";
 
 export const getEventsByHotel = async (req = request, res = response) => {
-    try{
+    try {
         const { hotelId } = req.hotel._id;
         const { page = 1, limit = 10 } = req.query;
-        const query = { 
+        const query = {
             hotel: hotelId,
             status: true
-        
+
         };
         const events = await Event.find(query)
             .limit(Number(limit))
             .skip((Number(page) - 1) * Number(limit));
-        
+
         const eventsWithHotel = await Promise.all(events.map(async (event) => {
             const hotel = await Hotel.findById(event.hotel);
             return { ...event.toObject(), hotel };
@@ -65,24 +65,24 @@ export const getEventById = async (req, res) => {
     }
 }
 
-export const createEvent = async (req, res) => {    
-    const { name, description, startDate, finishDate, hotel } = req.body;
+export const createEvent = async (req, res) => {
+    const { name, description, startDate, finishDate, hotelId, additionalServices = [] } = req.body;
 
     try {
-        const newEvent = new Event.create({
+        const newEvent = await Event.create({
             name,
             description,
             startDate,
             finishDate,
             additionalServices,
-            hotel
+            hotel: hotelId
         });
 
-        await Hotel.findByIdAndUpdate(hotel._id, {
-            $push: { events: newEvent._id}
-        })
+        await Hotel.findByIdAndUpdate(hotelId, {
+            $push: { events: newEvent._id }
+        });
 
-        res.status(201).json({
+        res.status(200).json({
             message: "Event created successfully",
             success: true,
             event: newEvent,
@@ -92,7 +92,7 @@ export const createEvent = async (req, res) => {
             success: false,
             message: "Error creating event",
             error: error.message,
-        })
+        });
     }
 }
 
@@ -122,7 +122,7 @@ export const cancelEvent = async (req, res) => {
         const event = await Event.findByIdAndUpdate(id, { status: false }, { new: true });
 
         await Hotel.findByIdAndUpdate(event.hotel._id, {
-            $pull: {events: event._id}
+            $pull: { events: event._id }
         })
 
         res.status(200).json({
@@ -139,16 +139,16 @@ export const cancelEvent = async (req, res) => {
     }
 }
 
-export const verifyEventAvailable = async( req, res) => {
+export const verifyEventAvailable = async (req, res) => {
     try {
         const { hotelId } = req.params;
         const hotel = await Hotel.findById(hotelId);
         const currentDate = new Date();
-        
+
         await Promise.all(
             hotel.events.map(async (event) => {
-                if(event.finishDate < currentDate) {
-                    await Event.findByIdAndUpdate(event._id, {status: false})
+                if (event.finishDate < currentDate) {
+                    await Event.findByIdAndUpdate(event._id, { status: false })
                 }
             })
         )
