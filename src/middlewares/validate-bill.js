@@ -58,23 +58,3 @@ export const validateUpdateBill = async (req, res, next) => {
 }
 
 
-export const validateDeleteBill = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const bill = await Bill.findById(id);
-
-    if (!bill) {
-      return res.status(404).json({
-        msg: 'Bill not found'
-      })
-    }
-
-    next();
-  } catch (error) {
-    console.log(error)
-    return res.status(500).json({
-      success: false,
-      msg: 'Error to validate deleting bill'
-    })
-  }
-}

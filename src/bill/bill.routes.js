@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 import { createBill, getBills, getBillById, updateBill, deleteBill, createBillFromReservation } from '../bill/bill.controller.js';
-import { validateCreateBill, validateDeleteBill, validateUpdateBill } from '../middlewares/validate-bill.js';
+import { validateCreateBill,  validateUpdateBill } from '../middlewares/validate-bill.js';
 import { haveRol } from "../middlewares/validate-role.js";
 import { validateJWT } from "../middlewares/validate-jwt.js";
 import { validateFields } from '../middlewares/validate-fields.js';
@@ -48,8 +48,7 @@ router.delete('/:id',
     [
         validateJWT,
         haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
-        check('id', 'Bill ID is invalid').isMongoId(),
-        validateDeleteBill
+        check('id', 'Bill ID is invalid').isMongoId()
     ], deleteBill
 );
 
