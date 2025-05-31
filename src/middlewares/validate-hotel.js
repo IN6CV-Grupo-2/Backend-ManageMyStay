@@ -5,8 +5,8 @@ import Room from '../room/room.model.js';
 export const validateUpdateHotel = async (req, res, next) => {
   try {
       const  user = req.user;
-      const { hotelId } = req.params;
-      const hotel = await Hotel.findById(hotelId);
+      const { id } = req.params;
+      const hotel = await Hotel.findById(id);
       const data = req.body
 
       if(!hotel){
@@ -15,14 +15,14 @@ export const validateUpdateHotel = async (req, res, next) => {
         })
       }
 
-      const adminUser = hotel.adminUser;
+      /*const adminUser = hotel.adminUser;
       if(!user.role !== "ADMIN_ROLE" || user._id.toString() !== adminUser._id.toString()){
         return res.status(404).json({
           msg: 'Only an administrator or an administrator of the hotel can edit the hotel'
         })
-      }
+      }*/
 
-      if(Array.isArray(data.events)){
+      /*if(Array.isArray(data.events)){
         for(const event of data.events) {
           const existsEvent = await Event.findById(event._id);
           if(!existsEvent){
@@ -42,7 +42,7 @@ export const validateUpdateHotel = async (req, res, next) => {
             })
           }
         }
-      }
+      }*/
 
       next();
       

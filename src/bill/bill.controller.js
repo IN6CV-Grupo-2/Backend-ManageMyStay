@@ -168,13 +168,6 @@ export const updateBill = async (req, res) => {
 
 export const deleteBill = async (req, res) => {
   const { id } = req.params;
-  const { confirm } = req.query;
-
-  if (confirm !== "true") {
-    return res.status(400).json({
-      msg: 'Confirmation required to delete bill. Please add "?confirm=true" to the URL.',
-    });
-  }
 
   try {
     const bill = await Bill.findById(id);

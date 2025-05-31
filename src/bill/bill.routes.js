@@ -49,7 +49,6 @@ router.delete('/:id',
         validateJWT,
         haveRol('ADMIN_ROLE', 'ADMIN_HOTEL_ROLE'),
         check('id', 'Bill ID is invalid').isMongoId(),
-        validateDeleteBill
     ], deleteBill
 );
 
