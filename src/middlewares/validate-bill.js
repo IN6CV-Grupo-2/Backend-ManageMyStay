@@ -3,11 +3,13 @@ import Reservation from '../reservations/reservation.model.js';
 
 export const validateCreateBill = async (req, res, next) => {
   try {
-    const {reservations} = req.body;
+    const { reservations } = req.body;
 
-    for(const reservation of reservations){
-      const existReservation = await Reservation.findById(reservation._id)
-      if(!existReservation){
+    for (const reservationId of reservations) {
+      const existReservation = await Reservation.findById(
+        reservationId._id || reservationId
+      );
+      if (!existReservation) {
         return res.status(404).json({
           msg: 'One or more reservation not found'
         })
@@ -22,22 +24,22 @@ export const validateCreateBill = async (req, res, next) => {
   }
 }
 
-export const  validateUpdateBill = async (req,res,next) => {
+export const validateUpdateBill = async (req, res, next) => {
   try {
-    const {billId} = req.params;
-    const bill = await Bill.findById(billId);
+    const { id } = req.params;
+    const bill = await Bill.findById(id);
     const data = req.body;
 
-    if(!bill) {
+    if (!bill) {
       return res.status(404).json({
-        msg:'Bill not found'
+        msg: 'Bill not found'
       })
     }
 
-    if(Array.isArray(data.reservations)){
-      for(const reservation of data.reservations){
+    if (Array.isArray(data.reservations)) {
+      for (const reservation of data.reservations) {
         const existReservation = await Reservation.findById(reservation._id);
-        if(!existReservation){
+        if (!existReservation) {
           return res.status(404).json({
             msg: 'One or more reservation not found'
           })
@@ -58,10 +60,10 @@ export const  validateUpdateBill = async (req,res,next) => {
 
 export const validateDeleteBill = async (req, res, next) => {
   try {
-    const { billId } = req.params;
-    const bill = await Bill.findById(billId);
+    const { id } = req.params;
+    const bill = await Bill.findById(id);
 
-    if(!bill){
+    if (!bill) {
       return res.status(404).json({
         msg: 'Bill not found'
       })

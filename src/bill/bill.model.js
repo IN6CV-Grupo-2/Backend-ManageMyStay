@@ -31,10 +31,4 @@ const BillSchema = Schema({
   }
 });
 
-BillSchema.methods.toJSON = function () {
-  const { __v, _id, ...bill } = this.toObject();
-  bill.uid = _id;
-  return bill;
-};
-
 export default model('Bill', BillSchema);

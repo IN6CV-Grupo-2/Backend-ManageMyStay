@@ -1,10 +1,11 @@
 [{
   "_id": {
-    "$oid": "682d4f1bb7c7d729cab997cc"
+    "$oid": "681ab8a0de7de81790dbddcf"
   },
   "name": "Admin",
   "surname": "Administrator",
   "email": "admin@gmail.com",
+<<<<<<< HEAD
   "password": "$argon2id$v=19$m=65536,t=3,p=4$uuN28GkXM6poZsckmw+G1A$P9s5msP9+F3X40R59JidT4abg828RrNRM1gS5f95Gxw",
   "role": "admin",
   "history": [],
@@ -14,41 +15,84 @@
   },
   "updatedAt": {
     "$date": "2025-05-25T20:15:19.018Z"
+=======
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$Onjoa2Kp744QWihxT1C4FQ$xSAEWHRVGhCr/vwFH7IXwwBIDf0BA2wPhT7vn8ZpDiU",
+  "role": "ADMIN_ROLE",
+  "history": [],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-07T01:34:24.538Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T01:34:24.538Z"
+>>>>>>> origin/JonathanAlvarez
   }
 },
 {
   "_id": {
+<<<<<<< HEAD
     "$oid": "683393e8467ed927adbc6f55"
   },
   "name": "Homero J",
   "surname": "Simpson",
   "email": "homero10@gmail.com",
   "password": "$argon2id$v=19$m=65536,t=3,p=4$FwRXOxXHgm52OBSiTL8xhQ$48FGPxPzDMNYwYyObijPgREeaklb+XcWTCoDvne8Bio",
+=======
+    "$oid": "681ab8b4de7de81790dbddd3"
+  },
+  "name": "prueba",
+  "surname": "tercera",
+  "email": "prueba2@gmail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$bVOpXmJD8xZfYk1BJeqhmA$xUHM1EbSxDS+Pq0zVTM8Ve/etw0gk8YMOs4mX9pMH0A",
+>>>>>>> origin/JonathanAlvarez
   "role": "CLIENT_ROLE",
   "history": [],
   "status": true,
   "createdAt": {
+<<<<<<< HEAD
     "$date": "2025-05-25T22:04:24.780Z"
   },
   "updatedAt": {
     "$date": "2025-05-25T22:05:47.757Z"
+=======
+    "$date": "2025-05-07T01:34:44.808Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T01:34:44.808Z"
+>>>>>>> origin/JonathanAlvarez
   }
 },
 {
   "_id": {
+<<<<<<< HEAD
     "$oid": "6833953a467ed927adbc6f92"
   },
   "name": "David",
   "surname": "Gilmour",
   "email": "ummawumma@gmail.com",
   "password": "$argon2id$v=19$m=65536,t=3,p=4$8nAXdejoGpNl5C0I/e7qYw$Irw/QUmiAa29tPBs+V4ssWa82oLBg94Boda9caxcQ0o",
+=======
+    "$oid": "681ab974de7de81790dbddd9"
+  },
+  "name": "Juan",
+  "surname": "Pérez",
+  "email": "juan.perez@example.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$9hqeVQTpynDF0G9NMxwzog$JGTFiHk8uXebPu2IKtwuJwCvaoIykyRPIWcjzWRtooc",
+>>>>>>> origin/JonathanAlvarez
   "role": "CLIENT_ROLE",
   "history": [],
   "status": true,
   "createdAt": {
+<<<<<<< HEAD
     "$date": "2025-05-25T22:10:02.691Z"
   },
   "updatedAt": {
     "$date": "2025-05-25T22:10:02.691Z"
+=======
+    "$date": "2025-05-07T01:37:56.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T01:37:56.585Z"
+>>>>>>> origin/JonathanAlvarez
   }
 }]

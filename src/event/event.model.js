@@ -18,11 +18,18 @@ const eventSchema = new Schema({
         required: [true, 'Finish Date is required']
     },
     additionalServices: [{
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Service",
+        default: []
      }],
     hotel: {
         type: Schema.Types.ObjectId,
         ref: "Hotel",
+        required: true,
+    },
+    manager: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true,
     },
     status: {
